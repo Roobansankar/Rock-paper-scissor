@@ -41,13 +41,21 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
 
+const corsOptions = {
+  origin: process.env.APPLICATION_URL,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(express.json());
 
+
+
 // Router
 const infoRouter = require("./router");
+const { method } = require("lodash");
 app.use("/info", infoRouter);
 
 // listen port
