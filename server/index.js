@@ -41,7 +41,7 @@ const cors = require("cors");
 
 // CORS options
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["https://deploy-mern-client-one.vercel.app"],
   methods: ["GET", "POST"],
   Credential: true,
 };
