@@ -6,7 +6,7 @@ const cors = require("cors");
 
 const app = express();
 
-// CORS options
+// CORS configuration
 const corsOptions = {
   origin: process.env.APPLICATION_URL,
   methods: "GET,HEAD,PUT,PATCH",
@@ -17,29 +17,23 @@ app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(express.json());
 
-// Cached database connection to improve performance
+// MongoDB Connection Handling
 let cachedDb = null;
-
 async function connectToDatabase(uri) {
-  if (cachedDb) {
-    return cachedDb;
-  }
-
-  // Establish MongoDB connection
+  if (cachedDb) return cachedDb; // Use cached connection if available
   const db = await mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-
   cachedDb = db;
-  console.log("Connected to MongoDB...");
+  console.log("Connected to MongoDB");
   return cachedDb;
 }
 
-// DB Connection Initialization
-connectToDatabase(process.env.MONGODB_URL).catch((err) =>
-  console.error("Error connecting to MongoDB:", err)
-);
+// Simple route to handle root URL (prevent 404 error)
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
 
 // Router
 const infoRouter = require("./router");
@@ -47,6 +41,11 @@ app.use("/info", infoRouter);
 
 // Listen on the specified port or default to 5013
 const PORT = process.env.PORT || 5013;
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
+app.listen(PORT, async () => {
+  try {
+    await connectToDatabase(process.env.MONGODB_URL);
+    console.log(`Server running on port ${PORT}`);
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
+  }
 });

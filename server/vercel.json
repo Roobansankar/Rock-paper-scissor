@@ -14,7 +14,12 @@
   ],
   "functions": {
     "index.js": {
-      "maxDuration": 10
+      "maxDuration": 30
     }
   }
 }
+
+
+
+
+
