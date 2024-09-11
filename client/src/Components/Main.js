@@ -85,35 +85,36 @@ export default function Main() {
       }
     }
 
+    axios.defaults.withCredentials = true;
+
     if (round === 6) {
       setGameOver(true);
 
       if (userPoints > computerPoints) {
         setResult(`${userName} wins`);
-       axios.post(`${process.env.REACT_APP_NODE_SERVER_APP_URL}/info`, {
-         User1Name: userName,
-         User2Name: userName2,
-         User1Result: "Win",
-         User2Result: "Lose",
-       });
+        axios.post("https://deploy-mern-api-topaz.vercel.app/info", {
+          User1Name: userName,
+          User2Name: userName2,
+          User1Result: "Win",
+          User2Result: "Lose",
+        });
       } else if (userPoints < computerPoints) {
         setResult(`${userName2} wins`);
-       axios.post(`${process.env.REACT_APP_NODE_SERVER_APP_URL}/info`, {
-         User1Name: userName,
-         User2Name: userName2,
-         User1Result: "Lose",
-         User2Result: "Win",
-       });
+        axios.post("https://deploy-mern-api-topaz.vercel.app/info", {
+          User1Name: userName,
+          User2Name: userName2,
+          User1Result: "Lose",
+          User2Result: "Win",
+        });
       } else {
         setResult("It's a tie");
-       axios.post(`${process.env.REACT_APP_NODE_SERVER_APP_URL}/info`, {
+        axios.post("https://deploy-mern-api-topaz.vercel.app/info", {
           User1Name: userName,
           User2Name: userName2,
           User1Result: "Tie",
           User2Result: "Tie",
         });
       }
-
     }
   }, [userChoice, computerChoice, round]);
 
