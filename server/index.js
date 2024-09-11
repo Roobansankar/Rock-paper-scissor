@@ -51,8 +51,6 @@ app.use(cors(corsOptions));
 app.use(morgan("dev"));
 app.use(express.json());
 
-
-
 // Router
 const infoRouter = require("./router");
 const { method } = require("lodash");
