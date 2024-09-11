@@ -20,14 +20,18 @@ router.post("/", async (req, res) => {
 });
 
 // Get all data
-router.get("/", async (req, res) => {
-  try {
-    const findData = await InfoRouter.find();
-    res.status(200).json(findData);
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+// router.get("/", async (req, res) => {
+//   try {
+//     const findData = await InfoRouter.find();
+//     res.status(200).json(findData);
+//   } catch (error) {
+//     console.error("Error fetching data:", error);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// });
+
+app.get("/", (req, res) => {
+  res.send("API is running...");
 });
 
 module.exports = router;

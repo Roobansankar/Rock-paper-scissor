@@ -20,11 +20,11 @@ app.use(express.json());
 // MongoDB Connection Handling
 let cachedDb = null;
 async function connectToDatabase(uri) {
-  if (cachedDb) return cachedDb;
+  if (cachedDb) return cachedDb; 
   const db = await mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  });
+  }); 
   cachedDb = db;
   console.log("Connected to MongoDB");
   return cachedDb;
@@ -37,7 +37,7 @@ async function connectToDatabase(uri) {
 
 // Router
 const infoRouter = require("./router");
-app.use("/", infoRouter);
+app.use("/info", infoRouter);
 
 // Listen on the specified port or default to 5013
 const PORT = process.env.PORT || 5013;
