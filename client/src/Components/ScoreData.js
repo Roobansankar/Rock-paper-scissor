@@ -54,7 +54,7 @@ const ScoreData = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_NODE_SERVER_APP_URL}`)
+      .get(`${process.env.REACT_APP_NODE_SERVER_APP_URL}/info`)
       .then((response) => {
         setScoreData(response.data);
       })
