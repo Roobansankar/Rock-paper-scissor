@@ -31,9 +31,9 @@
 // }
 
 // // Simple route to handle root URL (prevent 404 error)
-// // app.get("/", (req, res) => {
-// //   res.send("API is running...");
-// // });
+// app.get("/", (req, res) => {
+//   res.send("API is running...");
+// });
 
 // // Router
 // const infoRouter = require("./router");
@@ -110,8 +110,8 @@ const infoSchema = mongoose.Schema({
 
 const InfoRouter = mongoose.model("player", infoSchema);
 
-// Routes
-app.post("/info", async (req, res) => {
+// Routes directly on root "/"
+app.post("/", async (req, res) => {
   try {
     const data = new InfoRouter({
       User1Name: req.body.User1Name,
@@ -127,7 +127,7 @@ app.post("/info", async (req, res) => {
   }
 });
 
-app.get("/info", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     const findData = await InfoRouter.find();
     res.status(200).json(findData);
