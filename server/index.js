@@ -96,6 +96,10 @@ app.post("/info", async (req, res) => {
   }
 });
 
+app.get("/",(req, res) => {
+ res.json("Hello everyone");
+});
+
 app.get("/info", async (req, res) => {
   try {
     const findData = await Player.find();
