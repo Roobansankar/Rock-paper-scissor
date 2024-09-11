@@ -41,15 +41,15 @@ const cors = require("cors");
 
 // CORS options
 const corsOptions = {
-  origin: ["https://deploy-mern-client-one.vercel.app"],
-  methods: ["GET", "POST"],
-  Credential: true,
+  origin: ["https://deploy-mern-client-one.vercel.app"], // Allow your frontend URL
+  methods: ["GET", "POST"], // Allowed methods
+  credentials: true, // Corrected 'Credential' to 'credentials' to allow cookies/auth headers
 };
 
 // Middleware
-app.use(cors(corsOptions));
-app.use(morgan("dev"));
-app.use(express.json());
+app.use(cors(corsOptions)); // Apply CORS middleware with the updated options
+app.use(morgan("dev")); // Logging middleware
+app.use(express.json()); // Middleware to parse JSON bodies
 
 // MongoDB schema and model
 const infoSchema = mongoose.Schema({
@@ -96,8 +96,8 @@ app.post("/info", async (req, res) => {
   }
 });
 
-app.get("/",(req, res) => {
- res.json("Hello everyone");
+app.get("/", (req, res) => {
+  res.json("Hello everyone");
 });
 
 app.get("/info", async (req, res) => {

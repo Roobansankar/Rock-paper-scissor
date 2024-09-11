@@ -52,6 +52,73 @@ export default function Main() {
     window.location.reload();
   };
 
+  // useEffect(() => {
+  //   const comboMoves = userChoice + computerChoice;
+
+  //   if (round <= 6) {
+  //     if (
+  //       comboMoves === "rockscissors" ||
+  //       comboMoves === "paperrock" ||
+  //       comboMoves === "scissorspaper"
+  //     ) {
+  //       const updatedUserPoints = userPoints + 1;
+  //       setUserPoints(updatedUserPoints);
+  //       setTurnResult(`${userName} got the point`);
+  //     }
+
+  //     if (
+  //       comboMoves === "paperscissors" ||
+  //       comboMoves === "scissorsrock" ||
+  //       comboMoves === "rockpaper"
+  //     ) {
+  //       const updatedComputerPoints = computerPoints + 1;
+  //       setComputerPoints(updatedComputerPoints);
+  //       setTurnResult(`${userName2} got the point`);
+  //     }
+
+  //     if (
+  //       comboMoves === "rockrock" ||
+  //       comboMoves === "paperpaper" ||
+  //       comboMoves === "scissorsscissors"
+  //     ) {
+  //       setTurnResult("tie");
+  //     }
+  //   }
+
+  //   axios.defaults.withCredentials = true;
+
+  //   if (round === 6) {
+  //     setGameOver(true);
+
+  //     if (userPoints > computerPoints) {
+  //       setResult(`${userName} wins`);
+  //       axios.post("https://deploy-mern-api-topaz.vercel.app/info", {
+  //         User1Name: userName,
+  //         User2Name: userName2,
+  //         User1Result: "Win",
+  //         User2Result: "Lose",
+  //       });
+  //     } else if (userPoints < computerPoints) {
+  //       setResult(`${userName2} wins`);
+  //       axios.post("https://deploy-mern-api-topaz.vercel.app/info", {
+  //         User1Name: userName,
+  //         User2Name: userName2,
+  //         User1Result: "Lose",
+  //         User2Result: "Win",
+  //       });
+  //     } else {
+  //       setResult("It's a tie");
+  //       axios.post("https://deploy-mern-api-topaz.vercel.app/info", {
+  //         User1Name: userName,
+  //         User2Name: userName2,
+  //         User1Result: "Tie",
+  //         User2Result: "Tie",
+  //       });
+  //     }
+  //   }
+
+  // }, [userChoice, computerChoice, round]);
+
   useEffect(() => {
     const comboMoves = userChoice + computerChoice;
 
@@ -81,42 +148,63 @@ export default function Main() {
         comboMoves === "paperpaper" ||
         comboMoves === "scissorsscissors"
       ) {
-        setTurnResult("tie");
+        setTurnResult("It's a tie");
       }
     }
 
+    // Ensure credentials are sent with Axios requests
     axios.defaults.withCredentials = true;
 
     if (round === 6) {
       setGameOver(true);
 
+      let resultData;
+
       if (userPoints > computerPoints) {
         setResult(`${userName} wins`);
-        axios.post("https://deploy-mern-api-topaz.vercel.app/info", {
+        resultData = {
           User1Name: userName,
           User2Name: userName2,
           User1Result: "Win",
           User2Result: "Lose",
-        });
+        };
       } else if (userPoints < computerPoints) {
         setResult(`${userName2} wins`);
-        axios.post("https://deploy-mern-api-topaz.vercel.app/info", {
+        resultData = {
           User1Name: userName,
           User2Name: userName2,
           User1Result: "Lose",
           User2Result: "Win",
-        });
+        };
       } else {
         setResult("It's a tie");
-        axios.post("https://deploy-mern-api-topaz.vercel.app/info", {
+        resultData = {
           User1Name: userName,
           User2Name: userName2,
           User1Result: "Tie",
           User2Result: "Tie",
-        });
+        };
       }
+
+      // Send result to the server only once at the end of round 6
+      axios
+        .post("https://deploy-mern-api-topaz.vercel.app/info", resultData)
+        .then((response) => {
+          console.log("Result successfully saved:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error saving result:", error);
+        });
     }
-  }, [userChoice, computerChoice, round]);
+  }, [
+    userChoice,
+    computerChoice,
+    round,
+    userPoints,
+    computerPoints,
+    userName,
+    userName2,
+  ]);
 
   return (
     <div className="App">
