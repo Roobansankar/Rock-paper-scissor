@@ -90,7 +90,7 @@ export default function Main() {
 
       if (userPoints > computerPoints) {
         setResult(`${userName} wins`);
-       axios.post(`${process.env.REACT_APP_NODE_SERVER_APP_URL}/info`, {
+       axios.post(`${process.env.REACT_APP_NODE_SERVER_APP_URL}`, {
          User1Name: userName,
          User2Name: userName2,
          User1Result: "Win",
@@ -98,7 +98,7 @@ export default function Main() {
        });
       } else if (userPoints < computerPoints) {
         setResult(`${userName2} wins`);
-       axios.post(`${process.env.REACT_APP_NODE_SERVER_APP_URL}/info`, {
+       axios.post(`${process.env.REACT_APP_NODE_SERVER_APP_URL}`, {
          User1Name: userName,
          User2Name: userName2,
          User1Result: "Lose",
@@ -106,7 +106,7 @@ export default function Main() {
        });
       } else {
         setResult("It's a tie");
-       axios.post(`${process.env.REACT_APP_NODE_SERVER_APP_URL}/info`, {
+       axios.post(`${process.env.REACT_APP_NODE_SERVER_APP_URL}`, {
           User1Name: userName,
           User2Name: userName2,
           User1Result: "Tie",
