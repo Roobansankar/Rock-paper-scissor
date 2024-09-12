@@ -47,7 +47,10 @@ const cors = require("cors");
 // };
 
 const corsOptions = {
-  origin: "*", // Temporarily allow all origins for debugging
+  origin: [
+    "https://rps-client-6mfpx19hx-rooban-sankars-projects.vercel.app",
+    "https://rps-client-five.vercel.app",
+  ],
   methods: ["GET", "POST"],
   credentials: true,
 };
