@@ -41,7 +41,7 @@ const cors = require("cors");
 
 // CORS options
 const corsOptions = {
-  origin: ["https://deploy-mern-client-one.vercel.app"], // Allow your frontend URL
+  origin: ["https://rps-client-five.vercel.app"], // Allow your frontend URL
   methods: ["GET", "POST"], // Allowed methods
   credentials: true, // Corrected 'Credential' to 'credentials' to allow cookies/auth headers
 };
