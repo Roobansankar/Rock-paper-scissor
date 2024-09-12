@@ -40,10 +40,16 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 // CORS options
+// const corsOptions = {
+//   origin: ["https://rps-client-6mfpx19hx-rooban-sankars-projects.vercel.app/"], // Allow your frontend URL
+//   methods: ["GET", "POST"], // Allowed methods
+//   credentials: true, // Corrected 'Credential' to 'credentials' to allow cookies/auth headers
+// };
+
 const corsOptions = {
-  origin: ["https://rps-client-6mfpx19hx-rooban-sankars-projects.vercel.app/"], // Allow your frontend URL
-  methods: ["GET", "POST"], // Allowed methods
-  credentials: true, // Corrected 'Credential' to 'credentials' to allow cookies/auth headers
+  origin: "*", // Temporarily allow all origins for debugging
+  methods: ["GET", "POST"],
+  credentials: true,
 };
 
 // Middleware
