@@ -7,9 +7,7 @@ const ScoreData = () => {
 
   useEffect(() => {
     axios
-      .get(
-        "https://deploy-mern-ora7df5lq-rooban-sankars-projects.vercel.app/info"
-      )
+      .get("https://deploy-mern-api-topaz.vercel.app/info")
       .then((response) => {
         setScoreData(response.data);
       })
